@@ -12,6 +12,9 @@ struct FInputActionInstance;
 
 class USpringArmComponent;
 class UCameraComponent;
+class USceneComponent;
+class UNiagaraComponent;
+class UNiagaraSystem;
 
 /**
  * 
@@ -51,6 +54,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* SprintAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* FireAction;
+
 protected:
 	void Move(const FInputActionInstance& Instance);
 	void Look(const FInputActionInstance& Instance);
@@ -60,4 +66,19 @@ private:
 	UPROPERTY(EditAnywhere, Category = "View")
 	USpringArmComponent* SpringArmComp;
 	UCameraComponent* CameraComp;
+
+	bool bCanFire = true;
+	FTimerHandle FireTimerHandle;
+
+	UPROPERTY(EditAnywhere, Category = "Effect")
+	USceneComponent* NiagaraLocation;
+
+	UPROPERTY(EditAnywhere, Category = "Effect")
+	UNiagaraSystem* FireSystem;
+
+	UPROPERTY(EditAnywhere, Category = "Effect")
+	UNiagaraComponent* FireEffect;
+
+	void Fire() override;
+	void ResetFire();
 };

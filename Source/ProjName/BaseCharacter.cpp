@@ -18,6 +18,10 @@ void ABaseCharacter::BeginPlay()
 	
 }
 
+void ABaseCharacter::Fire()
+{
+}
+
 // Called every frame
 void ABaseCharacter::Tick(float DeltaTime)
 {

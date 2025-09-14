@@ -7,6 +7,9 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 
 AMainCharacterA::AMainCharacterA()
@@ -19,6 +22,9 @@ AMainCharacterA::AMainCharacterA()
 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComp->SetupAttachment(SpringArmComp);
+
+	NiagaraLocation = CreateDefaultSubobject<USceneComponent>(TEXT("Niagara"));
+	NiagaraLocation->SetupAttachment(ACharacter::GetMesh(), TEXT("Muzzle_01"));
 }
 
 void AMainCharacterA::BeginPlay()
@@ -32,7 +38,6 @@ void AMainCharacterA::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-
 	
 }
 
@@ -54,6 +59,7 @@ void AMainCharacterA::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMainCharacterA::Look);
 		Input->BindAction(SprintAction, ETriggerEvent::Triggered, this, &AMainCharacterA::OnSprint);
 		Input->BindAction(SprintAction, ETriggerEvent::Completed, this, &AMainCharacterA::ReleaseSprint);
+		Input->BindAction(FireAction, ETriggerEvent::Triggered, this, &AMainCharacterA::Fire);
 	}
 	
 }
@@ -97,4 +103,34 @@ void AMainCharacterA::ReleaseSprint()
 	if (CM != nullptr) {
 		CM->MaxWalkSpeed = 115.0f;
 	}
+}
+
+void AMainCharacterA::Fire()
+{
+	if (!bCanFire)	return;
+
+	Super::Fire();
+
+	FVector Start = NiagaraLocation->GetComponentLocation();
+	FVector End = Start + (NiagaraLocation->GetForwardVector() * 5500.0f);
+	FHitResult HitResult;
+
+	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility);
+	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 5.0f);
+
+	FireEffect = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), FireSystem, NiagaraLocation->GetComponentLocation());
+
+	if (FireEffect) {
+		FireEffect->Activate();
+	}
+
+	bCanFire = false;
+
+	GetWorldTimerManager().SetTimer(FireTimerHandle, this, &AMainCharacterA::ResetFire, 0.1f, false);
+}
+
+void AMainCharacterA::ResetFire()
+{
+	bCanFire = true;
+	FireEffect->Deactivate();
 }
