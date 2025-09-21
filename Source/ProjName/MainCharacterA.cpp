@@ -120,6 +120,10 @@ void AMainCharacterA::Fire()
 
 	FireEffect = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), FireSystem, NiagaraLocation->GetComponentLocation());
 
+	if (FireSound) {
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+	}
+
 	if (FireEffect) {
 		FireEffect->Activate();
 	}

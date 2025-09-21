@@ -21,6 +21,9 @@ protected:
 
 	virtual void Fire();
 
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	USoundBase* FireSound;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
