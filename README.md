@@ -17,3 +17,6 @@
 
 ## 2025.09.15
 - Commit : Line Tracing & Spawn Niagara
+
+## 2025.09.21
+- Play Fire Sound
