@@ -25,6 +25,8 @@ AMainCharacterA::AMainCharacterA()
 
 	NiagaraLocation = CreateDefaultSubobject<USceneComponent>(TEXT("Niagara"));
 	NiagaraLocation->SetupAttachment(ACharacter::GetMesh(), TEXT("Muzzle_01"));
+	
+	
 }
 
 void AMainCharacterA::BeginPlay()
@@ -115,8 +117,13 @@ void AMainCharacterA::Fire()
 	FVector End = Start + (NiagaraLocation->GetForwardVector() * 5500.0f);
 	FHitResult HitResult;
 
-	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility);
+	bool HasHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility);
 	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 5.0f);
+
+	if (HasHit) {
+		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 5.0f, 8, FColor::Green, false, 5.0f);
+		UGameplayStatics::ApplyDamage(HitResult.GetActor(), 5.0f, GetOwner()->GetInstigatorController(), this, UDamageType::StaticClass());
+	}
 
 	FireEffect = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), FireSystem, NiagaraLocation->GetComponentLocation());
 
