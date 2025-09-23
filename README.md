@@ -13,10 +13,13 @@
 
 ---
 ## 2025.09.11
-- Enhanced Input & ABP Setup
+- Enhanced Input & ABP Setup (향상된 입력 및 애님 블루프린트 셋업)
 
 ## 2025.09.15
-- Commit : Line Tracing & Spawn Niagara
+- Commit : Line Tracing & Spawn Niagara (라인 트레이싱 수행, 나이아가라 스폰)
 
 ## 2025.09.21
-- Play Fire Sound
+- Play Fire Sound (사격 사운드 추가, 적 캐릭터 추가)
+
+## 2025.09.23
+- Create Health Component, Apply Damage & AnyDamage (체력 액터 컴포넌트 추가, 적 캐릭터에 대해 Apply Damage, Any Damage 구현)
