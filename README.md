@@ -23,3 +23,6 @@
 
 ## 2025.09.23
 - Create Health Component, Apply Damage & AnyDamage (체력 액터 컴포넌트 추가, 적 캐릭터에 대해 Apply Damage, Any Damage 구현)
+
+## 2025.09.25
+- GameMode & PlayerController Setup, Break Constraint (게임 모드에서 캐릭터 사망 처리, 플레이어 컨트롤러에서 사망 여부에 따른 플레이어 입력 처리, 사망 시 본 분리로 로봇의 특성 연출)
