@@ -9,9 +9,27 @@
 /**
  * 
  */
+
+class AMainCharacterA;
+class ATPSController;
+
 UCLASS()
 class PROJNAME_API ATPSGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+	void CharacterDied(AActor* DeadCharacter);
+
+protected:
+	virtual void BeginPlay() override;
+
+private:
+	AMainCharacterA* MainCharacter;
+	ATPSController* InputController;
+
+	int EnemyCount;
+	int GetEnemyCount();
+
+	void HandleGameStart();
 };
