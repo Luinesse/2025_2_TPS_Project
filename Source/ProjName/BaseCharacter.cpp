@@ -3,6 +3,9 @@
 
 #include "BaseCharacter.h"
 #include "Components/CapsuleComponent.h"
+#include "HealthComponent.h"
+#include "TPSGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -17,6 +20,12 @@ void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	UHealthComponent* HealthComp = FindComponentByClass<UHealthComponent>();
+	ATPSGameMode* GameModePtr = Cast<ATPSGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+
+	if (HealthComp && GameModePtr) {
+		HealthComp->OnDeath.AddUObject(GameModePtr, &ATPSGameMode::CharacterDied);
+	}
 }
 
 void ABaseCharacter::Fire()

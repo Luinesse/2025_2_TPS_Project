@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "HealthComponent.generated.h"
 
-class ATPSGameMode;
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnDeathSignature, AActor*);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class PROJNAME_API UHealthComponent : public UActorComponent
@@ -30,9 +30,10 @@ private:
 	float MaxHealth;
 
 	float Health;
-	ATPSGameMode* GameModePtr;
 public:
 	float GetHealth();
+
+	FOnDeathSignature OnDeath;
 
 	UFUNCTION()
 	void DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigator, AActor* DamageCauser);

@@ -3,7 +3,6 @@
 
 #include "HealthComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "TPSGameMode.h"
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
@@ -24,8 +23,6 @@ void UHealthComponent::BeginPlay()
 	// ...
 	Health = MaxHealth;
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DamageTaken);
-
-	GameModePtr = Cast<ATPSGameMode>(UGameplayStatics::GetGameMode(this));
 }
 
 
@@ -47,7 +44,7 @@ void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDa
 	Health -= Damage;
 	UE_LOG(LogTemp, Display, TEXT("Execute AnyDamage ! Current HP : %f"), Health);
 
-	if (Health <= 0 && GameModePtr) {
-		GameModePtr->CharacterDied(DamagedActor);
+	if (Health <= 0) {
+		OnDeath.Broadcast(DamagedActor);
 	}
 }
