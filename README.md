@@ -26,3 +26,6 @@
 
 ## 2025.09.25
 - GameMode & PlayerController Setup, Break Constraint (게임 모드에서 캐릭터 사망 처리, 플레이어 컨트롤러에서 사망 여부에 따른 플레이어 입력 처리, 사망 시 본 분리로 로봇의 특성 연출)
+
+## 2025.09.27
+- Revise Character Died Logic (캐릭터 사망 처리를 델리게이트를 사용하여 로직변경. 약한결합으로 코드 리팩토링)
