@@ -57,6 +57,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* FireAction;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<UCameraShakeBase> AttackCameraShake;
+
 protected:
 	void Move(const FInputActionInstance& Instance);
 	void Look(const FInputActionInstance& Instance);

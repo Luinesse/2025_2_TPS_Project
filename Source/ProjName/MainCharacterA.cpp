@@ -120,6 +120,10 @@ void AMainCharacterA::Fire()
 	bool HasHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility);
 	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 5.0f);
 
+	if (AttackCameraShake) {
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(AttackCameraShake);
+	}
+
 	if (HasHit) {
 		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 5.0f, 8, FColor::Green, false, 5.0f);
 		UGameplayStatics::ApplyDamage(HitResult.GetActor(), 5.0f, GetOwner()->GetInstigatorController(), this, UDamageType::StaticClass());
