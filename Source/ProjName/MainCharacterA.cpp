@@ -10,6 +10,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
+#include "Perception/AISense_Damage.h"
 
 
 AMainCharacterA::AMainCharacterA()
@@ -127,6 +128,7 @@ void AMainCharacterA::Fire()
 	if (HasHit) {
 		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 5.0f, 8, FColor::Green, false, 5.0f);
 		UGameplayStatics::ApplyDamage(HitResult.GetActor(), 5.0f, GetOwner()->GetInstigatorController(), this, UDamageType::StaticClass());
+		UAISense_Damage::ReportDamageEvent(GetWorld(), HitResult.GetActor(), GetOwner(), 5.0f, GetActorLocation(), HitResult.ImpactPoint);
 	}
 
 	FireEffect = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), FireSystem, NiagaraLocation->GetComponentLocation());

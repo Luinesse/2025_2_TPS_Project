@@ -11,6 +11,12 @@
  */
 
 class UBehaviorTree;
+class UAIPerceptionComponent;
+class UAISenseConfig_Sight;
+class UAISenseConfig_Hearing;
+class UAISenseConfig_Damage;
+
+struct FAIStimulus;
 
 UCLASS()
 class PROJNAME_API AEnemyController : public AAIController
@@ -27,4 +33,15 @@ public:
 private:
 	UPROPERTY(EditAnywhere, Category = "AI")
 	UBehaviorTree* MyBehavior;
+
+	UPROPERTY(EditAnywhere)
+	UAIPerceptionComponent* AIPerception;
+
+	UAISenseConfig_Sight* SightConfig;
+	UAISenseConfig_Hearing* HearingConfig;
+	UAISenseConfig_Damage* DamageConfig;
+
+private:
+	UFUNCTION()
+	void PerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 };
