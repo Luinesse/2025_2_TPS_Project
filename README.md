@@ -35,4 +35,6 @@
 
 ## 2025.10.02
 - AI Move (블랙보드 기반 태스크, 비헤이비어 트리, AI Controller 작업)
-- 
+
+## 2025.10.09
+- AI Attack Logic (AIController 를 통한 시각,청각,데미지 감각 셋업, 공격 로직 작성)
