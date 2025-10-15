@@ -76,6 +76,7 @@ void AEnemyController::PerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 		else {
 			// 시각에서 사라짐
 			GetBlackboardComponent()->ClearValue(TEXT("TargetActor"));
+			OnStopFireRequest.Broadcast();
 		}
 	}
 	else if (SenseID == UAISense::GetSenseID<UAISense_Hearing>()) {
@@ -88,7 +89,6 @@ void AEnemyController::PerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 		if (Stimulus.WasSuccessfullySensed()) {
 			// 데미지 처리
 			if (Actor) {
-				GetBlackboardComponent()->SetValueAsObject(TEXT("TargetActor"), Actor);
 				GetBlackboardComponent()->SetValueAsVector(TEXT("SoundLocation"), Stimulus.StimulusLocation);
 			}
 			else {

@@ -18,6 +18,8 @@ class UAISenseConfig_Damage;
 
 struct FAIStimulus;
 
+DECLARE_MULTICAST_DELEGATE(FOnFireRequestSignature);
+
 UCLASS()
 class PROJNAME_API AEnemyController : public AAIController
 {
@@ -44,4 +46,8 @@ private:
 private:
 	UFUNCTION()
 	void PerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
+
+public:
+	FOnFireRequestSignature OnStartFireRequest;
+	FOnFireRequestSignature OnStopFireRequest;
 };
