@@ -38,3 +38,6 @@
 
 ## 2025.10.09
 - AI Attack Logic (AIController 를 통한 시각,청각,데미지 감각 셋업, 공격 로직 작성)
+
+## 2025.10.15
+- Enemy Fire & Spawn Bullet (태스크를 활용한 적 공격 AI 구현, 델리게이트와 타이머 핸들을 활용하여 총알 스폰)
