@@ -8,6 +8,7 @@
 #include "Perception/AISenseConfig_Sight.h"
 #include "Perception/AISenseConfig_Hearing.h"
 #include "Perception/AISenseConfig_Damage.h"
+#include "Kismet/GameplayStatics.h"
 
 AEnemyController::AEnemyController()
 {
@@ -70,8 +71,11 @@ void AEnemyController::PerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 
 	if (SenseID == UAISense::GetSenseID<UAISense_Sight>()) {
 		if (Stimulus.WasSuccessfullySensed()) {
-			// 시각 처리
-			GetBlackboardComponent()->SetValueAsObject(TEXT("TargetActor"), Actor);
+			if (Actor->ActorHasTag(TEXT("Player"))) {
+				// 시각 처리
+				GetBlackboardComponent()->SetValueAsObject(TEXT("TargetActor"), Actor);
+				GetBlackboardComponent()->SetValueAsVector(TEXT("TargetLocation"), Actor->GetTargetLocation());
+			}
 		}
 		else {
 			// 시각에서 사라짐

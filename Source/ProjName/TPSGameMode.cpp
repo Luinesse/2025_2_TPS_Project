@@ -19,6 +19,12 @@ void ATPSGameMode::CharacterDied(AActor* DeadCharacter)
 	}
 	else if (AEnemyCharacter* DeadEnemy = Cast<AEnemyCharacter>(DeadCharacter)) {
 		DeadEnemy->HandleDestruction();
+
+		AController* EnemyController = DeadEnemy->GetController();
+		if (EnemyController) {
+			EnemyController->UnPossess();
+		}
+
 		EnemyCount--;
 		if (EnemyCount == 0) {
 			// 게임 종료 함수

@@ -47,6 +47,7 @@ void AEnemyCharacter::Fire()
 
 		if (SpawnBullet) {
 			SpawnBullet->SetOwner(this);
+			SpawnBullet->FireInDirection(BulletPos->GetForwardVector());
 		}
 
 		if (FireSound) {

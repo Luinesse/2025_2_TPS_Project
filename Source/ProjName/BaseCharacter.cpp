@@ -48,9 +48,6 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ABaseCharacter::HandleDestruction()
 {
-	// 노티파이를 통해 몽타주 종료 시 visibility off
-	// tick off
-	// 위 내용을 노티파이 구현부에서 작성
 
 	UCapsuleComponent* CapsuleValue = GetCapsuleComponent();
 	
