@@ -5,6 +5,7 @@
 #include "EnemyBullet.h"
 #include "EnemyController.h"
 #include "Kismet/GameplayStatics.h"
+#include "BehaviorTree/BlackboardComponent.h"
 
 void AEnemyCharacter::PossessedBy(AController* NewController)
 {
@@ -43,11 +44,30 @@ void AEnemyCharacter::StopFireTimer()
 void AEnemyCharacter::Fire()
 {
 	if (Bullet) {
+		FVector ShootDirection;
+		AEnemyController* EnemyController = Cast<AEnemyController>(GetController());
+		if (EnemyController) {
+			UBlackboardComponent* BlackboardComp = EnemyController->GetBlackboardComponent();
+			if (BlackboardComp) {
+				AActor* TargetActor = Cast<AActor>(BlackboardComp->GetValueAsObject(TEXT("TargetActor")));
+				if (TargetActor) {
+					ShootDirection = (TargetActor->GetActorLocation() - BulletPos->GetComponentLocation()).GetSafeNormal();
+				}
+				else {
+					ShootDirection = BulletPos->GetForwardVector();
+				}
+			}
+		}
+
 		AEnemyBullet* SpawnBullet = GetWorld()->SpawnActor<AEnemyBullet>(Bullet, BulletPos->GetComponentLocation(), BulletPos->GetComponentRotation());
 
 		if (SpawnBullet) {
 			SpawnBullet->SetOwner(this);
-			SpawnBullet->FireInDirection(BulletPos->GetForwardVector());
+
+			float SpreadAngleRad = FMath::DegreesToRadians(BulletSpreadAngle);
+			FVector FinalDirection = FMath::VRandCone(ShootDirection, SpreadAngleRad);
+
+			SpawnBullet->FireInDirection(FinalDirection);
 		}
 
 		if (FireSound) {

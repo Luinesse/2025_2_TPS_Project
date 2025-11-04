@@ -44,5 +44,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float FireRate = 1.0f;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float BulletSpreadAngle = 2.0f;
+
 	FTimerHandle FireTimerHandle;
 };
