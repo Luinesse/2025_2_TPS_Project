@@ -41,3 +41,6 @@
 
 ## 2025.10.15
 - Enemy Fire & Spawn Bullet (태스크를 활용한 적 공격 AI 구현, 델리게이트와 타이머 핸들을 활용하여 총알 스폰)
+
+## 2025.10.28
+- Bullet Destroy & Apply Damage (총알 피격 시 삭제 및 Apply Damage)
