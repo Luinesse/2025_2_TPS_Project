@@ -63,6 +63,15 @@ void AEnemyController::OnPossess(APawn* InPawn)
 void AEnemyController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+
+	UBlackboardComponent* BlackboardComp = GetBlackboardComponent();
+
+	if (BlackboardComp) {
+		AActor* Target = Cast<AActor>(BlackboardComp->GetValueAsObject(TEXT("TargetActor")));
+		if (Target) {
+			BlackboardComp->SetValueAsVector(TEXT("TargetLocation"), Target->GetActorLocation());
+		}
+	}
 }
 
 void AEnemyController::PerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
