@@ -44,3 +44,6 @@
 
 ## 2025.10.28
 - Bullet Destroy & Apply Damage (총알 피격 시 삭제 및 Apply Damage)
+
+## 2025.11.04
+- Enemy Rotate Bug (적 사격 시, 플레이어 방향으로 회전하지 않는 버그 수정)
