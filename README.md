@@ -48,3 +48,6 @@
 ## 2025.11.04
 - Enemy Rotate Bug (적 사격 시, 플레이어 방향으로 회전하지 않는 버그 수정)
 - Bullet Spread & Angle Interpolation (탄착군이 벌어지도록 수정, 플레이어에게 사격 시 각도가 안맞던 문제 수정 및 보간)
+
+## 2025.11.06
+- Dynamic Crosshair (동적 크로스헤어 구현)
