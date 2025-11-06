@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BaseCharacter.h"
+#include "CrosshairInterface.h"
 #include "MainCharacterA.generated.h"
 
 class UInputMappingContext;
@@ -16,11 +17,13 @@ class USceneComponent;
 class UNiagaraComponent;
 class UNiagaraSystem;
 
+class UUserWidget;
+
 /**
  * 
  */
 UCLASS()
-class PROJNAME_API AMainCharacterA : public ABaseCharacter
+class PROJNAME_API AMainCharacterA : public ABaseCharacter, public ICrosshairInterface
 {
 	GENERATED_BODY()
 	
@@ -37,6 +40,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual float GetCurrentSpread() const override;
 
 public:
 	UPROPERTY(EditAnywhere, Category = "Input")
@@ -81,6 +86,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Effect")
 	UNiagaraComponent* FireEffect;
+
+	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<UUserWidget> CrosshairWidget;
 
 	void Fire() override;
 	void ResetFire();

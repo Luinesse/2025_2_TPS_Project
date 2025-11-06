@@ -11,6 +11,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 #include "Perception/AISense_Damage.h"
+#include "Blueprint/UserWidget.h"
 
 
 AMainCharacterA::AMainCharacterA()
@@ -41,6 +42,16 @@ void AMainCharacterA::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	if (PlayerController && CrosshairWidget) {
+		UUserWidget* MyCrosshair = CreateWidget<UUserWidget>(PlayerController, CrosshairWidget);
+		UE_LOG(LogTemp, Display, TEXT("Successful if condition"));
+		if (MyCrosshair) {
+			MyCrosshair->AddToViewport();
+			UE_LOG(LogTemp, Display, TEXT("Successful Viewport"));
+		}
+
+	}
 	
 }
 
@@ -65,6 +76,13 @@ void AMainCharacterA::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		Input->BindAction(FireAction, ETriggerEvent::Triggered, this, &AMainCharacterA::Fire);
 	}
 	
+}
+
+float AMainCharacterA::GetCurrentSpread() const {
+	float CurrentSpeed = GetVelocity().Size();
+	float Spread = 1.0f + (CurrentSpeed / 5.0f);
+
+	return Spread;
 }
 
 void AMainCharacterA::Move(const FInputActionInstance& Instance)
@@ -115,7 +133,7 @@ void AMainCharacterA::Fire()
 	Super::Fire();
 
 	FVector Start = NiagaraLocation->GetComponentLocation();
-	FVector End = Start + (NiagaraLocation->GetForwardVector() * 5500.0f);
+	FVector End = Start + (CameraComp->GetForwardVector() * 5500.0f);
 	FHitResult HitResult;
 
 	bool HasHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility);
