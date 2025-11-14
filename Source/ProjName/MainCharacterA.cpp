@@ -12,6 +12,8 @@
 #include "NiagaraComponent.h"
 #include "Perception/AISense_Damage.h"
 #include "Blueprint/UserWidget.h"
+#include "HealthComponent.h"
+#include "HealthWidget.h"
 
 
 AMainCharacterA::AMainCharacterA()
@@ -51,6 +53,21 @@ void AMainCharacterA::BeginPlay()
 			UE_LOG(LogTemp, Display, TEXT("Successful Viewport"));
 		}
 
+	}
+
+	if (PlayerController && HealthBarWidget) {
+		UUserWidget* MyHealthBar = CreateWidget<UUserWidget>(PlayerController, HealthBarWidget);
+		if (MyHealthBar) {
+			MyHealthBar->AddToViewport();
+		}
+
+		UHealthComponent* HealthComp = FindComponentByClass<UHealthComponent>();
+		UHealthWidget* HealthWidget = Cast<UHealthWidget>(MyHealthBar);
+
+		if (HealthComp && HealthWidget) {
+			HealthComp->OnChangedHealthPercent.AddUObject(HealthWidget, &UHealthWidget::CalculateHealth);
+			HealthWidget->CalculateHealth(HealthComp->GetHealth(), HealthComp->GetMaxHealth());
+		}
 	}
 	
 }
@@ -145,7 +162,7 @@ void AMainCharacterA::Fire()
 
 	if (HasHit) {
 		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 5.0f, 8, FColor::Green, false, 5.0f);
-		UGameplayStatics::ApplyDamage(HitResult.GetActor(), 5.0f, GetOwner()->GetInstigatorController(), this, UDamageType::StaticClass());
+		UGameplayStatics::ApplyDamage(HitResult.GetActor(), 0.05f, GetOwner()->GetInstigatorController(), this, UDamageType::StaticClass());
 		UAISense_Damage::ReportDamageEvent(GetWorld(), HitResult.GetActor(), GetOwner(), 5.0f, GetActorLocation(), HitResult.ImpactPoint);
 	}
 

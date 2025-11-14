@@ -23,6 +23,7 @@ void UHealthComponent::BeginPlay()
 	// ...
 	Health = MaxHealth;
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DamageTaken);
+
 }
 
 
@@ -39,10 +40,17 @@ float UHealthComponent::GetHealth()
 	return Health;
 }
 
+float UHealthComponent::GetMaxHealth()
+{
+	return MaxHealth;
+}
+
 void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigator, AActor* DamageCauser)
 {
 	Health -= Damage;
 	UE_LOG(LogTemp, Display, TEXT("Execute AnyDamage ! Current HP : %f"), Health);
+
+	OnChangedHealthPercent.Broadcast(Health, MaxHealth);
 
 	if (Health <= 0) {
 		OnDeath.Broadcast(DamagedActor);

@@ -37,5 +37,5 @@ private:
 	UProjectileMovementComponent* ProjectileComp;
 
 	UPROPERTY(EditAnywhere)
-	float Damage = 5.0f;
+	float Damage = 0.05f;
 };

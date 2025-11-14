@@ -7,6 +7,7 @@
 #include "HealthComponent.generated.h"
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnDeathSignature, AActor*);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnChangedHealthPercentSignature, float, float);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class PROJNAME_API UHealthComponent : public UActorComponent
@@ -32,8 +33,11 @@ private:
 	float Health;
 public:
 	float GetHealth();
+	float GetMaxHealth();
 
 	FOnDeathSignature OnDeath;
+
+	FOnChangedHealthPercentSignature OnChangedHealthPercent;
 
 	UFUNCTION()
 	void DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigator, AActor* DamageCauser);

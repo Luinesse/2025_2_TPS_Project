@@ -90,6 +90,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UUserWidget> CrosshairWidget;
 
+	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<UUserWidget> HealthBarWidget;
+
 	void Fire() override;
 	void ResetFire();
 };
