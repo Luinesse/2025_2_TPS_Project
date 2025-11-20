@@ -51,3 +51,6 @@
 
 ## 2025.11.06
 - Dynamic Crosshair (동적 크로스헤어 구현)
+
+## 2025.11.14
+- Create Health Widget (플레이어 체력 바 위젯 구현)
