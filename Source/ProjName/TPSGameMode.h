@@ -12,6 +12,7 @@
 
 class AMainCharacterA;
 class ATPSController;
+class UDisplayWidgetComp;
 
 UCLASS()
 class PROJNAME_API ATPSGameMode : public AGameModeBase
@@ -19,12 +20,20 @@ class PROJNAME_API ATPSGameMode : public AGameModeBase
 	GENERATED_BODY()
 	
 public:
+	ATPSGameMode();
+
 	void CharacterDied(AActor* DeadCharacter);
 
 protected:
 	virtual void BeginPlay() override;
 
 private:
+	UPROPERTY(VisibleAnywhere, Category = "Widget")
+	UDisplayWidgetComp* VictoryWidgets;
+
+	UPROPERTY(VisibleAnywhere, Category = "Widget")
+	UDisplayWidgetComp* LoseWidgets;
+
 	AMainCharacterA* MainCharacter;
 	ATPSController* InputController;
 

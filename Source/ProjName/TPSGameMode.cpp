@@ -7,6 +7,13 @@
 #include "EnemyCharacter.h"
 #include "TPSController.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "DisplayWidgetComp.h"
+
+ATPSGameMode::ATPSGameMode()
+{
+	VictoryWidgets = CreateDefaultSubobject<UDisplayWidgetComp>(TEXT("VictoryWidgets"));
+	LoseWidgets = CreateDefaultSubobject<UDisplayWidgetComp>(TEXT("LoseWidgets"));
+}
 
 void ATPSGameMode::CharacterDied(AActor* DeadCharacter)
 {
@@ -14,6 +21,7 @@ void ATPSGameMode::CharacterDied(AActor* DeadCharacter)
 		MainCharacter->HandleDestruction();
 		if (InputController) {
 			InputController->SetInputEnabledState(false);
+			LoseWidgets->ShowWidget();
 		}
 		// Gameover Function
 	}
@@ -29,7 +37,9 @@ void ATPSGameMode::CharacterDied(AActor* DeadCharacter)
 		if (EnemyCount == 0) {
 			// 게임 종료 함수
 			// 아래는 테스트용 함수
-			UKismetSystemLibrary::QuitGame(GetWorld(), UGameplayStatics::GetPlayerController(GetWorld(), 0), EQuitPreference::Quit, false);
+			//UKismetSystemLibrary::QuitGame(GetWorld(), UGameplayStatics::GetPlayerController(GetWorld(), 0), EQuitPreference::Quit, false);
+			VictoryWidgets->ShowWidget();
+
 		}
 	}
 }
