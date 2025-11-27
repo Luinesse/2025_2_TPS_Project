@@ -54,3 +54,6 @@
 
 ## 2025.11.14
 - Create Health Widget (플레이어 체력 바 위젯 구현)
+
+## 2025.11.20
+- Introduce Widget & Victory or Lose Widget (게임 시작 시 설명 위젯 추가, 승리 및 패배 시 위젯 추가)
