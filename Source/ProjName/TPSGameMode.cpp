@@ -24,6 +24,8 @@ void ATPSGameMode::CharacterDied(AActor* DeadCharacter)
 			LoseWidgets->ShowWidget();
 		}
 		// Gameover Function
+
+		GetWorldTimerManager().SetTimer(RestartTimerHandle, this, &ATPSGameMode::RestartLevel, 5.0f, false);
 	}
 	else if (AEnemyCharacter* DeadEnemy = Cast<AEnemyCharacter>(DeadCharacter)) {
 		DeadEnemy->HandleDestruction();
@@ -39,7 +41,7 @@ void ATPSGameMode::CharacterDied(AActor* DeadCharacter)
 			// 아래는 테스트용 함수
 			//UKismetSystemLibrary::QuitGame(GetWorld(), UGameplayStatics::GetPlayerController(GetWorld(), 0), EQuitPreference::Quit, false);
 			VictoryWidgets->ShowWidget();
-
+			GetWorldTimerManager().SetTimer(RestartTimerHandle, this, &ATPSGameMode::RestartLevel, 5.0f, false);
 		}
 	}
 }
@@ -49,6 +51,11 @@ void ATPSGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	HandleGameStart();
+}
+
+void ATPSGameMode::RestartLevel()
+{
+	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
 }
 
 int ATPSGameMode::GetEnemyCount()

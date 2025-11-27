@@ -36,6 +36,10 @@ private:
 
 	AMainCharacterA* MainCharacter;
 	ATPSController* InputController;
+	
+	FTimerHandle RestartTimerHandle;
+
+	void RestartLevel();
 
 	int EnemyCount;
 	int GetEnemyCount();
