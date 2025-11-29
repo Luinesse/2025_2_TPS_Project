@@ -33,6 +33,6 @@ public:
 
 	virtual void HandleDestruction();
 
-private:
+protected:
 	bool bAlive = true;
 };

@@ -31,6 +31,8 @@ public:
 
 	UFUNCTION()
 	void StopFireTimer();
+
+	virtual void HandleDestruction();
 public:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TSubclassOf<AEnemyBullet> Bullet;
@@ -48,4 +50,7 @@ private:
 	float BulletSpreadAngle = 2.0f;
 
 	FTimerHandle FireTimerHandle;
+
+	UPROPERTY()
+	TArray<AEnemyBullet*> Bullets;
 };

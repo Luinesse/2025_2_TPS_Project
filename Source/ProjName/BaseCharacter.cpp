@@ -65,5 +65,6 @@ void ABaseCharacter::HandleDestruction()
 		MeshValue->BreakConstraint(FVector::ZeroVector, FVector::ZeroVector, TEXT("pelvis"));
 	}
 	
+	bAlive = false;
 }
 

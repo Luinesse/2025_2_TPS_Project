@@ -41,9 +41,22 @@ void AEnemyCharacter::StopFireTimer()
 	GetWorld()->GetTimerManager().ClearTimer(FireTimerHandle);
 }
 
+void AEnemyCharacter::HandleDestruction()
+{
+	Super::HandleDestruction();
+
+	for (auto* bullet : Bullets) {
+		if (IsValid(bullet)) {
+			bullet->Destroy();
+		}
+	}
+
+	Bullets.Empty();
+}
+
 void AEnemyCharacter::Fire()
 {
-	if (Bullet) {
+	if (Bullet && bAlive) {
 		FVector ShootDirection;
 		AEnemyController* EnemyController = Cast<AEnemyController>(GetController());
 		if (EnemyController) {
@@ -68,6 +81,8 @@ void AEnemyCharacter::Fire()
 			FVector FinalDirection = FMath::VRandCone(ShootDirection, SpreadAngleRad);
 
 			SpawnBullet->FireInDirection(FinalDirection);
+
+			Bullets.Add(SpawnBullet);
 		}
 
 		if (FireSound) {
