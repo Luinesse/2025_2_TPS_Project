@@ -57,3 +57,6 @@
 
 ## 2025.11.20
 - Introduce Widget & Victory or Lose Widget (게임 시작 시 설명 위젯 추가, 승리 및 패배 시 위젯 추가)
+
+## 2025.11.27
+- Fixed Bullet Destroy (적 캐릭터 사망 시 총알 미삭제 버그 해결)
