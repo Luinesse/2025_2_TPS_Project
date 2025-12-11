@@ -16,8 +16,8 @@ AEnemyBullet::AEnemyBullet()
 
 	ProjectileComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile"));
 	ProjectileComp->SetUpdatedComponent(BulletMesh);
-	ProjectileComp->InitialSpeed = 3000.0f;
-	ProjectileComp->MaxSpeed = 3000.0f;
+	ProjectileComp->InitialSpeed = 10000.0f;
+	ProjectileComp->MaxSpeed = 10000.0f;
 	ProjectileComp->bRotationFollowsVelocity = true;
 	ProjectileComp->bShouldBounce = false;
 	ProjectileComp->ProjectileGravityScale = 0.0f;

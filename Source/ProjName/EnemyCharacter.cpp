@@ -6,6 +6,7 @@
 #include "EnemyController.h"
 #include "Kismet/GameplayStatics.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "HealthItem.h"
 
 void AEnemyCharacter::PossessedBy(AController* NewController)
 {
@@ -52,6 +53,8 @@ void AEnemyCharacter::HandleDestruction()
 	}
 
 	Bullets.Empty();
+
+	GetWorld()->SpawnActor<AHealthItem>(HealthPack, GetActorLocation(), GetActorRotation());
 }
 
 void AEnemyCharacter::Fire()

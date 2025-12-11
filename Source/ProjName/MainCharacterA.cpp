@@ -61,7 +61,7 @@ void AMainCharacterA::BeginPlay()
 			MyHealthBar->AddToViewport();
 		}
 
-		UHealthComponent* HealthComp = FindComponentByClass<UHealthComponent>();
+		HealthComp = FindComponentByClass<UHealthComponent>();
 		UHealthWidget* HealthWidget = Cast<UHealthWidget>(MyHealthBar);
 
 		if (HealthComp && HealthWidget) {

@@ -65,6 +65,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TSubclassOf<UCameraShakeBase> AttackCameraShake;
 
+	class UHealthComponent* HealthComp;
 protected:
 	void Move(const FInputActionInstance& Instance);
 	void Look(const FInputActionInstance& Instance);

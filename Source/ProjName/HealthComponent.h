@@ -35,6 +35,8 @@ public:
 	float GetHealth();
 	float GetMaxHealth();
 
+	void SetHealth(float AddHealth);
+
 	FOnDeathSignature OnDeath;
 
 	FOnChangedHealthPercentSignature OnChangedHealthPercent;

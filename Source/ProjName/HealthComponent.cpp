@@ -3,6 +3,7 @@
 
 #include "HealthComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "HealthItem.h"
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
@@ -43,6 +44,20 @@ float UHealthComponent::GetHealth()
 float UHealthComponent::GetMaxHealth()
 {
 	return MaxHealth;
+}
+
+void UHealthComponent::SetHealth(float AddHealth)
+{
+	if (AddHealth < 0.0f)	return;
+
+	if (Health + AddHealth >= MaxHealth) {
+		Health = MaxHealth;
+	}
+	else {
+		Health += AddHealth;
+	}
+
+	OnChangedHealthPercent.Broadcast(Health, MaxHealth);
 }
 
 void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigator, AActor* DamageCauser)

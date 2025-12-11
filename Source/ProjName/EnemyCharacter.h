@@ -7,6 +7,7 @@
 #include "EnemyCharacter.generated.h"
 
 class AEnemyBullet;
+class AHealthItem;
 
 /**
  * 
@@ -39,6 +40,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, Category = "Transform")
 	USceneComponent* BulletPos;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<AHealthItem> HealthPack;
 private:
 	void Fire() override;
 
